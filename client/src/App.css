@@ -1,0 +1,39 @@
+
+
+.pay__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;height: 100vh;
+}
+.pay__btn{
+  background-color: black;
+  color: #fff;
+  width: 120px;
+  height: 50px;
+  padding: 20px;
+  border-radius: 5px;
+  border: none;
+  font-weight: 600px;
+}
+.success__wrapper{
+  display:flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+.success__btn{
+  background-color: green;
+  font-size: 26px;
+  color: #fff;
+  width: 170px;
+  height: 52px;
+  border-radius: 5px;
+  border: none;
+}
+.success__wrapper p{
+  font-weight: 500;
+  font-size: 18px;
+  text-align: center;
+  width: 342px;
+}
