@@ -31,7 +31,8 @@ const Arrow = styled.div`
 const Wrapper = styled.div`
   display: flex;
   height: 100%;
-  transform: translateX(${props=>props.slideIndex*-100}vw);
+  transition: all 1.5s ease;
+  transform: translateX(${(props) => props.slideIndex * -100}vw);
 `;
 const Slide = styled.div`
   width: 100vw;
@@ -67,14 +68,14 @@ const Button = styled.button`
 
 const Slider = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  console.log(slideIndex)
+  console.log(slideIndex);
 
   const handleClick = (direction) => {
     if (direction === "left") {
-      console.log('left')
+      console.log("left");
       setSlideIndex(slideIndex > 0 ? slideIndex - 1 : sliderItems.length - 1);
     } else {
-      setSlideIndex(slideIndex <sliderItems.length - 1? slideIndex + 1 : 0);
+      setSlideIndex(slideIndex < sliderItems.length - 1 ? slideIndex + 1 : 0);
     }
   };
 
@@ -92,35 +93,12 @@ const Slider = () => {
               </ImgContainer>
               <InfoContainer>
                 <Title>{item.title}</Title>
-                <Description>
-                 {item.desc}
-                </Description>
+                <Description>{item.desc}</Description>
                 <Button>SHOP NOW</Button>
               </InfoContainer>
             </Slide>
           );
         })}
-
-        {/* <Slide bg='fbf0f4'>
-          <ImgContainer>
-            <Image src="https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>WINTER SALE</Title>
-            <Description>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Description>
-            <Button>SHOW NOW</Button>
-          </InfoContainer>
-        </Slide>
-        <Slide bg='fcf1ed'>
-          <ImgContainer>
-            <Image src="https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg" />
-          </ImgContainer>
-          <InfoContainer>
-            <Title>POPULAR SALE</Title>
-            <Description>DON'T COMPROMISE ON STYLE! GET FLAT 30% OFF FOR NEW ARRIVALS</Description>
-            <Button>SHOP NOW</Button>
-          </InfoContainer>
-        </Slide> */}
       </Wrapper>
       <Arrow direction="right" onClick={() => handleClick("right")}>
         <ArrowRight />
