@@ -59,23 +59,23 @@ const getAllProducts = async (req, res) => {
 
   try {
     let products;
-    if(queryNew){
-products = await Product.find().sort({createdAt:-1}).limit(5)
-    } else if(queryCategory){
-        products = await Product.find({categories:{
-            $in:[queryCategory]
-        }})
-    }else{
-        products = await Product.find()
+    if (queryNew) {
+      products = await Product.find().sort({ createdAt: -1 }).limit(5);
+    } else if (queryCategory) {
+      products = await Product.find({
+        categories: {
+          $in: [queryCategory],
+        },
+      });
+    } else {
+      products = await Product.find();
     }
- 
-    res.status(StatusCodes.OK).json({ products });
+
+    res.status(StatusCodes.OK).json(products );
   } catch (err) {
     res.status(StatusCodes.BAD_REQUEST).json(err);
   }
 };
-
-
 
 module.exports = {
   createProduct,

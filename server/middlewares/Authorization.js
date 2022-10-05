@@ -17,6 +17,7 @@ const AuthenticationMiddleware = (req, res, next) => {
 
     const { userId, isAdmin } = payload;
     req.user = { userId, isAdmin };
+    console.log(req.user,'wahala')
 
     next();
   } catch (error) {

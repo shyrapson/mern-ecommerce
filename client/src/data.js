@@ -27,19 +27,31 @@ export const categories = [
     id: 1,
     img: "https://images.pexels.com/photos/5886041/pexels-photo-5886041.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     title: "SHIRT STYLE!",
-    cat: "women",
+    category: "women",
   },
   {
     id: 2,
     img: "https://images.pexels.com/photos/2983464/pexels-photo-2983464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
     title: "LOUNGEWEAR LOVE",
-    cat: "coat",
+    category: "coat",
   },
   {
     id: 3,
     img: "https://images.pexels.com/photos/5480696/pexels-photo-5480696.jpeg?auto=compress&cs=tinysrgb&dpr=2&w=500",
     title: "LIGHT JACKETS",
-    cat: "jeans",
+    category: "jeans",
+  },
+  {
+    id: 4,
+    img: "https://i3.cpcache.com/merchandise/2_750x750_Front_Color-White.jpg?Size=S&AttributeValue=NA&c=False&region={%22name%22:%22FrontCenter%22,%22width%22:6.4,%22height%22:6.4,%22alignment%22:%22TopCenter%22,%22orientation%22:0,%22dpi%22:100,%22crop_x%22:0,%22crop_y%22:0,%22crop_h%22:600,%22crop_w%22:600,%22scale%22:0,%22template%22:{%22id%22:110277449,%22params%22:{}}}&cid=PUartJBjiF%2fyg4FdKqiggQ%3d%3d+%7c%7c+0NKQMBZXu34VEo6KY7YRNg%3d%3d&ProductNo=265681489",
+    title: "MAN'S SHIRT",
+    category: "tshirt",
+  },
+  {
+    id: 5,
+    img: "https://i.ibb.co/S6qMxwr/jean.jpg",
+    title: "Denim jumpsuit",
+    category: "jumpsuit",
   },
 ];
 

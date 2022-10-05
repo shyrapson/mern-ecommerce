@@ -1,22 +1,23 @@
 import React from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import Pay from "./pages/Pay";
 import Success from "./pages/Success";
 import "./App.css";
 import { Home, Product, ProductList, Login, Register, Cart } from "./pages";
 
 const App = () => {
+  const user =true
   return (
     <div>
       <Routes>
-        <Route path="/product" element={<Product />} />
-        <Route path="/list" element={<ProductList />} />
-        <Route path="/Cart" element={<Cart/>} />
         <Route path="/" element={<Home/>} />
-        <Route path="/pay" element={<Pay />} />
+        <Route path="/products/:category" element={<ProductList />} />
+        <Route path="/product/:id" element={<Product />} />
+        <Route path="/cart" element={<Cart/>} />
+        <Route path="/login" element={user ? <Navigate to="/"></Navigate>:<Login />} />
+        <Route path="/register" element={user?<Navigate to="/"/>:<Register />} />
         <Route path="/success" element={<Success />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
+        <Route path="/pay" element={<Pay />} />
       </Routes>
     </div>
   );

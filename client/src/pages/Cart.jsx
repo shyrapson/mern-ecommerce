@@ -1,4 +1,5 @@
 import { Add, Remove } from "@mui/icons-material";
+import { useSelector } from "react-redux";
 import styled from "styled-components";
 import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
@@ -154,7 +155,8 @@ const Button = styled.button`
 `;
 
 const Cart = () => {
-  // const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state.cart);
+  console.log(cart,'cart be this')
 
   return (
     <Container>
@@ -172,34 +174,38 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-            <Product>
+           {
+            cart.products?.map((product)=>(
+              <Product>
               <ProductDetail>
-                <Image src="" />
+                <Image src={product.img} />
                 <Details>
                   <ProductName>
-                    <b>Product:</b> Yankees Big shoe
+                    <b>Product:</b> {product.title}
                   </ProductName>
                   <ProductId>
-                    <b>ID:</b> product id
+                    <b>ID:</b> {product._id}
                   </ProductId>
-                  <ProductColor color="blue" />
+                  <ProductColor color={product.color} />
                   <ProductSize>
-                    <b>Size:</b> product size
+                    <b>Size:</b> {product.size}
                   </ProductSize>
                 </Details>
               </ProductDetail>
               <PriceDetail>
                 <ProductAmountContainer>
                   <Add />
-                  <ProductAmount>34</ProductAmount>
+                  <ProductAmount>{product.quantity}</ProductAmount>
                   <Remove />
                 </ProductAmountContainer>
-                <ProductPrice>$44</ProductPrice>
+                <ProductPrice>${product.price * Product.quantity}</ProductPrice>
               </PriceDetail>
             </Product>
+            ))
+           }
 
             <Hr />
-            <Product>
+            {/* <Product>
               <ProductDetail>
                 <Image src="" />
                 <Details>
@@ -223,7 +229,7 @@ const Cart = () => {
                 </ProductAmountContainer>
                 <ProductPrice>$44</ProductPrice>
               </PriceDetail>
-            </Product>
+            </Product> */}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
