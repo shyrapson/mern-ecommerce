@@ -1,9 +1,14 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 const Success = () => {
+
+  const location = useLocation()
+
+  console.log(location,'wahala')
   return (
-    <div className='success__wrapper'> <Link to="/success">
+    <div className='success__wrapper'>
+       <Link to="/success">
     <button className='success__btn'>
       Successfull.</button>
     </Link>

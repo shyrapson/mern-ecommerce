@@ -5,6 +5,12 @@ import Announcement from "../components/Announcement";
 import Footer from "../components/Footer";
 import Navbar from "../components/Navbar";
 import { mobile } from "../responsive";
+import StripeCheckout from "react-stripe-checkout";
+import { useEffect, useState } from "react";
+import { userRequest } from "../requestMethod";
+import { useNavigate } from "react-router-dom";
+const KEY = process.env.REACT_APP_STRIPE;
+// const KEY ="pk_test_51LgHLrKHu6EECHAYl7ssOa7ppzoCufsnuyy52NXFfzMYy6tH8ZEmQUqC9HEZB7bO93pAug0aJmpIJUVbmMeGTaKc00vhxcc78B";
 
 const Container = styled.div``;
 
@@ -156,7 +162,27 @@ const Button = styled.button`
 
 const Cart = () => {
   const cart = useSelector((state) => state.cart);
-  console.log(cart,'cart be this')
+  const [stripeToken, setStripeToken] = useState(null);
+  const navigate = useNavigate();
+
+  const onToken = (token) => {
+    setStripeToken(token);
+  };
+
+  useEffect(() => {
+    const makeRequest = async () => {
+      try {
+        const res = await userRequest.post("/checkout/payment", {
+          tokenId: stripeToken.id,
+          amount: cart.total * 
+          
+          100,
+        });
+        navigate("/success", { stripeData: res.data, products: cart });
+      } catch (error) {}
+    };
+    stripeToken && makeRequest();
+  }, [stripeToken, navigate, cart.total, cart]);
 
   return (
     <Container>
@@ -174,75 +200,70 @@ const Cart = () => {
         </Top>
         <Bottom>
           <Info>
-           {
-            cart.products?.map((product)=>(
-              <Product>
-              <ProductDetail>
-                <Image src={product.img} />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> {product.title}
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> {product._id}
-                  </ProductId>
-                  <ProductColor color={product.color} />
-                  <ProductSize>
-                    <b>Size:</b> {product.size}
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>{product.quantity}</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>${product.price * Product.quantity}</ProductPrice>
-              </PriceDetail>
-            </Product>
-            ))
-           }
+            {cart.products?.map((product) => (
+              <Product key={product}>
+                <ProductDetail>
+                  <Image src={product.img} />
+                  <Details>
+                    <ProductName>
+                      <b>Product:</b> {product.title}
+                    </ProductName>
+                    <ProductId>
+                      <b>ID:</b> {product._id}
+                    </ProductId>
+                    <ProductColor color={product.color} />
+                    <ProductSize>
+                      <b>Size:</b> {product.size}
+                    </ProductSize>
+                  </Details>
+                </ProductDetail>
+                <PriceDetail>
+                  <ProductAmountContainer>
+                    <Add />
+                    <ProductAmount>{product.quantity}</ProductAmount>
+                    <Remove />
+                  </ProductAmountContainer>
+                  <ProductPrice>
+                    ${product.price * product.quantity}
+                  </ProductPrice>
+                </PriceDetail>
+              </Product>
+            ))}
 
             <Hr />
-            {/* <Product>
-              <ProductDetail>
-                <Image src="" />
-                <Details>
-                  <ProductName>
-                    <b>Product:</b> Yankees Big shoe
-                  </ProductName>
-                  <ProductId>
-                    <b>ID:</b> product id
-                  </ProductId>
-                  <ProductColor color="blue" />
-                  <ProductSize>
-                    <b>Size:</b> product size
-                  </ProductSize>
-                </Details>
-              </ProductDetail>
-              <PriceDetail>
-                <ProductAmountContainer>
-                  <Add />
-                  <ProductAmount>34</ProductAmount>
-                  <Remove />
-                </ProductAmountContainer>
-                <ProductPrice>$44</ProductPrice>
-              </PriceDetail>
-            </Product> */}
           </Info>
           <Summary>
             <SummaryTitle>ORDER SUMMARY</SummaryTitle>
+            <SummaryItem>
+              <SummaryItemText type="total">Subtotal</SummaryItemText>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+            </SummaryItem>
 
             <SummaryItem>
-              <SummaryItemText type="">Estimated shipping</SummaryItemText>
-              <SummaryItemPrice>$-5.90</SummaryItemPrice>
+              <SummaryItemText type="">Estimated Shipping</SummaryItemText>
+              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
             </SummaryItem>
             <SummaryItem>
-              <SummaryItemText type="total">Total</SummaryItemText>
-              <SummaryItemPrice>$80</SummaryItemPrice>
+              <SummaryItemText type="">Shipping Discount</SummaryItemText>
+              <SummaryItemPrice>$ 5.90</SummaryItemPrice>
             </SummaryItem>
-            <Button>CHECKOUT NOW</Button>
+
+            <SummaryItem>
+              <SummaryItemText type="total">Total</SummaryItemText>
+              <SummaryItemPrice>${cart.total}</SummaryItemPrice>
+            </SummaryItem>
+            <StripeCheckout
+              name="Saeed Shop"
+              image="https://i.ibb.co/S6qMxwr/jean.jpg"
+              billingAddress
+              shippingAddress
+              description={`your total is ${cart.total} `}
+              amount={cart.total * 100}
+              token={onToken}
+              stripeKey={KEY}
+            >
+              <Button>CHECKOUT NOW</Button>
+            </StripeCheckout>
           </Summary>
         </Bottom>
       </Wrapper>
