@@ -5,22 +5,24 @@ import { userRequest } from "../../requestMethods";
 
 export default function WidgetSm() {
   const [users, setUsers] = useState([]);
+  console.log(users, "kkkkk1");
+  console.log(Object.values(users), "eeee");
 
   useEffect(() => {
     const getUsers = async () => {
       try {
-        const res = await userRequest.get("users/?new=true");
+        const res = await userRequest.get("/user/?new=true");
         setUsers(res.data);
       } catch {}
     };
     getUsers();
   }, []);
-  
+
   return (
     <div className="widgetSm">
       <span className="widgetSmTitle">New Join Members</span>
       <ul className="widgetSmList">
-        {users.map((user) => (
+        {Object.values(users)[0]?.map((user) => (
           <li className="widgetSmListItem" key={user._id}>
             <img
               src={

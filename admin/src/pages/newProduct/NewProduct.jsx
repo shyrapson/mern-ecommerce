@@ -7,7 +7,7 @@ import {
   getDownloadURL,
 } from "firebase/storage";
 import app from "../../firebase";
-import { addProduct } from "../../redux/apiCalls";
+import { addProduct } from "../userList/redux/apiCalls"
 import { useDispatch } from "react-redux";
 
 export default function NewProduct() {

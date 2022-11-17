@@ -1,5 +1,6 @@
 const { StatusCodes } = require("http-status-codes");
 const Order = require("../models/Order");
+const Cart = require("../models/Cart");
 const { BadRequest } = require("../errors");
 
 //create Order
@@ -54,23 +55,25 @@ const getOrder = async (req, res) => {
 //get all Orders
 const getAllOrders = async (req, res) => {
   try {
-    const orders = await Cart.find({});
+    const orders = await Order.find({});
     res.status(StatusCodes.OK).json(orders);
   } catch (err) {
     res.status(StatusCodes.BAD_REQUEST).json(err);
   }
 };
-//Get Monthly Income
 
-const getMonthlyIncome = async (req,res) => {
+//Get Monthly Income
+const getMonthlyIncome = async (req, res) => {
   const date = new Date();
   const lastMonth = new Date(date.setMonth(date.getMonth() - 1));
   const previousMonth = new Date(date.setMonth(lastMonth.getMonth() - 1));
   try {
     const income = await Order.aggregate([
-      { 
+      {
         $match: {
-           createdAt: { $gte: previousMonth } } },
+          createdAt: { $gte: previousMonth },
+        },
+      },
       {
         $project: {
           month: { $month: "$createdAt" },

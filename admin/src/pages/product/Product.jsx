@@ -16,6 +16,7 @@ export default function Product() {
     state.product.products.find((product) => product._id === productId)
   );
 
+
   const MONTHS = useMemo(
     () => [
       "Jan",
@@ -37,7 +38,9 @@ export default function Product() {
   useEffect(() => {
     const getStats = async () => {
       try {
+        // const res = await userRequest.get(`orders/income?${productId}`);
         const res = await userRequest.get("orders/income?pid=" + productId);
+        console.log(res,'llll')
         const list = res.data.sort((a,b)=>{
             return a._id - b._id
         })

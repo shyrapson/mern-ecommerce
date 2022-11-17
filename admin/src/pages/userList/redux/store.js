@@ -37,3 +37,13 @@ export const store = configureStore({
 });
 
 export let persistor = persistStore(store);
+
+
+
+const Store = () => {
+  return (
+    <div>Store</div>
+  )
+}
+
+export default Store
