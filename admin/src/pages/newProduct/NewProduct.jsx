@@ -15,18 +15,23 @@ export default function NewProduct() {
   const [file, setFile] = useState(null);
   const [cat, setCat] = useState([]);
   const dispatch = useDispatch();
+  console.log(file,'fff')
 
   const handleChange = (e) => {
     setInputs((prev) => {
       return { ...prev, [e.target.name]: e.target.value };
     });
   };
+
+  
   const handleCat = (e) => {
     setCat(e.target.value.split(","));
   };
 
   const handleClick = (e) => {
     e.preventDefault();
+
+    // make the image file name dynamic 
     const fileName = new Date().getTime() + file.name;
     const storage = getStorage(app);
     const storageRef = ref(storage, fileName);
@@ -62,6 +67,7 @@ export default function NewProduct() {
         // For instance, get the download URL: https://firebasestorage.googleapis.com/...
         getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
           const product = { ...inputs, img: downloadURL, categories: cat };
+          console.log(product,'firebase')
           addProduct(product, dispatch);
         });
       }

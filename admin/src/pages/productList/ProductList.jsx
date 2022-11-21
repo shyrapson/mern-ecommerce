@@ -9,6 +9,7 @@ import { deleteProduct, getProducts } from "../userList/redux/apiCalls"
 export default function ProductList() {
   const dispatch = useDispatch();
   const products = useSelector((state) => state.product.products);
+  console.log(products,'ddddddddddd')
 
   useEffect(() => {
     getProducts(dispatch);
@@ -26,6 +27,7 @@ export default function ProductList() {
       headerName: "Product",
       width: 200,
       renderCell: (params) => {
+        console.log(params,'ggg')
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.img} alt="" />

@@ -75,6 +75,7 @@ const Login = () => {
   const [email, setEmail] = useState([]);
   const [password, setPassword] = useState("");
   const { isFetching, error } = useSelector((state) => state.user);
+  console.log({email,password})
 
   const disPatch = useDispatch();
 

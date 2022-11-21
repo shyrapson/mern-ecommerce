@@ -33,7 +33,7 @@ export const getProducts = async (dispatch) => {
     const res = await userRequest.get("/products/");
     console.log(res,'he be things')
     dispatch(getProductSuccess(res.data));
-  } catch (err) {
+  } catch (err) { 
     dispatch(getProductFailure());
   }
 };
